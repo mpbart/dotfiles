@@ -25,3 +25,6 @@ set nowrap
 set laststatus=2
 set cursorline
 hi Cursorline cterm=None ctermbg=235 ctermfg=None
+
+" Set tab width to 4 for .go files and don't expand tabs to spaces
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
