@@ -14,4 +14,5 @@ alias dirs='dirs -v'
 alias p='pushd'
 alias o='popd'
 alias vim='/usr/local/bin/vim'
+alias gitpurge='git branch -d $(git branch --merged)'
 set -o vi
