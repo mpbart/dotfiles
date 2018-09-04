@@ -91,3 +91,15 @@ function! HasPaste()
     en
     return ''
 endfunction
+
+" Copy filepath to clipboard
+if has('win32')
+  nmap ,cs :let @*=substitute(expand("%"), "/", "\\", "g")<CR>
+  nmap ,cl :let @*=substitute(expand("%:p"), "/", "\\", "g")<CR>
+
+  " This will copy the path in 8.3 short format, for DOS and Windows 9x
+  nmap ,c8 :let @*=substitute(expand("%:p:8"), "/", "\\", "g")<CR>
+else
+  nmap ,cs :let @*=expand("%")<CR>
+  nmap ,cl :let @*=expand("%:p")<CR>
+endif
