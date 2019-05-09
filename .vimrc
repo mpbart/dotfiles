@@ -1,11 +1,13 @@
+execute pathogen#infect()
+
 syntax enable
 
 " Use spaces instead of tabs
 set expandtab
 
 " 1 tab == 4 spaces
-set shiftwidth=4
-set softtabstop=4
+set shiftwidth=2
+set softtabstop=2
 
 " Show 3 lines above/below cursor
 set scrolloff=3
@@ -92,7 +94,7 @@ function! HasPaste()
     return ''
 endfunction
 
-" Copy filepath to clipboard
+" Convert slashes to backslashes for Windows.
 if has('win32')
   nmap ,cs :let @*=substitute(expand("%"), "/", "\\", "g")<CR>
   nmap ,cl :let @*=substitute(expand("%:p"), "/", "\\", "g")<CR>
@@ -103,3 +105,26 @@ else
   nmap ,cs :let @*=expand("%")<CR>
   nmap ,cl :let @*=expand("%:p")<CR>
 endif
+
+" ---------------- NERDTree specific aliases and functions --------------------
+
+" Remap NERDTree to \v and open on the current file
+:nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+
+" Set options for NERDTree UI
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" ---------------- Ack specific aliases and functions ---------------------------
+:nnoremap <leader>a :Ack<Space>
+
+" ---------------- ctrlp specific aliases and functions ---------------------------
+:let g:ctrlp_max_files=20000
+:let g:ctrlp_custom_ignore='\.git/*\|tmp/*\|test_data/*\|test_fixtures/*\|node_modules/*\|etc/*\|db/*\|*.haml\|*.html'
+
+" ---------------- git-blame specific aliases and functions ---------------------------
+:nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
