@@ -16,3 +16,7 @@ alias o='popd'
 alias vim='/usr/local/bin/vim'
 alias gitpurge='git branch -d $(git branch --merged)'
 set -o vi
+alias gm='git checkout master && git pull'
+alias gs='git status'
+alias gp='git push'
+alias gb='git branch'
