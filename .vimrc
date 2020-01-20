@@ -69,6 +69,13 @@ set statusline=\%{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %
 set cursorline
 hi Cursorline cterm=None ctermbg=235 ctermfg=None
 
+" Set the redrawtime to be higher
+set redrawtime=10000
+
+" User defined commands to toggle line numbers
+command NN set nu! | set rnu!
+command NU set nu | set rnu
+
 
 " Return to last edit position when opening files
 autocmd BufReadPost *
