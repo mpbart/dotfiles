@@ -14,7 +14,8 @@ alias dirs='dirs -v'
 alias p='pushd'
 alias o='popd'
 alias vim='/usr/local/bin/vim'
-alias gitpurge='git branch -d $(git branch --merged)'
+alias vi='/usr/local/bin/vim'
+alias gitpurge='~/compare_branches.rb'
 export HISTSIZE=50000
 set -o vi
 alias gm='git checkout master && git pull'
