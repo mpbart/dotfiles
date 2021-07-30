@@ -72,9 +72,17 @@ hi Cursorline cterm=None ctermbg=235 ctermfg=None
 " Set the redrawtime to be higher
 set redrawtime=10000
 
+" Use a shorter updatetime
+set updatetime=300
+
+" Remap : to ;
+nnoremap ; :
+
 " User defined commands to toggle line numbers
 command NN set nu! | set rnu!
 command NU set nu | set rnu
+
+command CHARS set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣ | set list
 
 
 " Return to last edit position when opening files
@@ -130,8 +138,37 @@ endif
 :nnoremap <leader>a :Ack<Space>
 
 " ---------------- ctrlp specific aliases and functions ---------------------------
-:let g:ctrlp_max_files=20000
-:let g:ctrlp_custom_ignore='\.git/*\|tmp/*\|test_data/*\|test_fixtures/*\|node_modules/*\|etc/*\|db/*\|*.haml\|*.html'
+:let g:ctrlp_max_files=0
+:let g:ctrlp_custom_ignore='\.git/*\|tmp/*\|test_data/*\|test_fixtures/*\|node_modules/*\|etc/*\|db/*\|spec/integration/*\|spec/unit/*\|spec/factories/*\|spec/smoke/*\|spec/data_source_factories/*\|spec/acceptance/*\|spec/fixtures/*\|certs/*\|public/*\|vendor/*\|staging_fixtures/*\|test_data_population/*\|log/*\|regression_tests/*\|bin/*\'
 
 " ---------------- git-blame specific aliases and functions ---------------------------
 :nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
+" configuration for coc.vim autocompletion
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" GoTo code navigation.
+nmap <silent> gcd <Plug>(coc-definition)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
