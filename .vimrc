@@ -4,10 +4,16 @@ syntax enable
 
 " Use spaces instead of tabs
 set expandtab
+"
+" Use 'true' colors
+set termguicolors
 
 " 1 tab == 4 spaces
 set shiftwidth=2
 set softtabstop=2
+"
+" disable mouse
+set mouse=
 
 " Show 3 lines above/below cursor
 set scrolloff=3
@@ -26,7 +32,6 @@ set smartcase
 
 " Turn magic on for regex
 set magic
-set t_Co=256
 
 " Set size of windows
 set wmh=0
@@ -144,6 +149,13 @@ endif
 " ---------------- git-blame specific aliases and functions ---------------------------
 :nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
+" Setup configuration for ruby language server
+set shortmess-=F
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
+    \ }
+
+set hidden
 " configuration for coc.vim autocompletion
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
