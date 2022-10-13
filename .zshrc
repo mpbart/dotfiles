@@ -19,6 +19,9 @@ if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -
 # Get git completion
 [ -f $HOME/.git_completion.zsh ] && source $HOME/.git_completion.zsh
 
+# Source .zshenv file if it exists
+[[ -f ~/.zshenv ]] && source ~/.zshenv
+
 # Set some zsh options http://zsh.sourceforge.net/Doc/Release/Options.html#Options
 setopt \
   HIST_SAVE_NO_DUPS \
