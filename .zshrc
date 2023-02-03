@@ -92,3 +92,4 @@ alias vlogin="vault login -method=okta -address=$VAULT_ADDR username=mpb01e@amou
 alias dcr='docker-compose exec web bundle exec rspec $@'
 alias dce='docker-compose exec $@'
 alias dcu='docker-compose up'
+alias help='ruby ~/help.rb $1'
