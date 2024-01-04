@@ -2,6 +2,9 @@ execute pathogen#infect()
 
 syntax enable
 
+" Use 'true' colors
+set termguicolors
+
 " Use spaces instead of tabs
 set expandtab
 
@@ -144,31 +147,19 @@ endif
 " ---------------- git-blame specific aliases and functions ---------------------------
 :nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
-" configuration for coc.vim autocompletion
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+set shortmess-=F
+let g:LanguageClient_serverCommands = {
+    \ 'ruby': ['~/.asdf/shims/solargraph', 'stdio'],
+    \ 'typescriptreact': ['/Users/MichaelBarton/.asdf/shims/typescript-language-server', '--stdio'],
+    \ 'typescript': ['/Users/MichaelBarton/.asdf/shims/typescript-language-server', '--stdio'],
+    \ 'python': ['/opt/homebrew/bin/pylsp', '--log-file=/Users/MichaelBarton/lc.log'],
+    \ }
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+set hidden
 
-" GoTo code navigation.
-nmap <silent> gcd <Plug>(coc-definition)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient_textDocument_references()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nmap <silent> menu <Plug>(lcn-menu)
+nmap <silent> ref <Plug>(lcn-references)
